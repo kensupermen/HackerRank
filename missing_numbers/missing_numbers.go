@@ -2,49 +2,32 @@ package main
 
 import (
 	"fmt"
-	"sort"
+	"strconv"
 )
 
 func main() {
-	var n, m int
+	LIMIT := 1000001
+	var n, m, tmp int
 	fmt.Scan(&n)
 
-	arrA := make(map[int]int)
+	arrA := make([]int, LIMIT)
 	for i := 0; i < n; i++ {
-		var value int
-		fmt.Scan(&value)
-		arrA[value]++
+		fmt.Scan(&tmp)
+		arrA[tmp]++
 	}
 
 	fmt.Scan(&m)
 
-	arrB := make(map[int]int)
-
+	arrB := make([]int, LIMIT)
 	for i := 0; i < m; i++ {
-		var value int
-		fmt.Scan(&value)
-		arrB[value]++
+		fmt.Scan(&tmp)
+		arrB[tmp]++
 	}
 
-	// fmt.Println("----------------Process----------------")
-
-	for kA, vA := range arrA {
-		for kB, vB := range arrB {
-			if kA == kB {
-				arrB[kB] = vB - vA
-			}
+	for i := 0; i < LIMIT; i++ {
+		if arrA[i] != arrB[i] {
+			fmt.Print(strconv.Itoa(i) + " ")
 		}
 	}
 
-	// fmt.Println("----------------Result----------------")
-	keys := make([]int, 0, len(arrB))
-	for k, v := range arrB {
-		if v > 0 {
-			keys = append(keys, k)
-		}
-	}
-	sort.Ints(keys)
-	for i := 0; i < len(keys); i++ {
-		fmt.Print(keys[i], " ")
-	}
 }
